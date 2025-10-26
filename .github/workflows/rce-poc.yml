@@ -1,0 +1,20 @@
+name: PoC - whoami demo
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+jobs:
+  poc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Run whoami (for PoC only)
+        run: |
+          echo "[INFO] Executing whoami to show runner context"
+          whoami
+          echo "[INFO] Done"
